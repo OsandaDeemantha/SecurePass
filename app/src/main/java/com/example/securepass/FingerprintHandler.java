@@ -55,13 +55,35 @@ public class FingerprintHandler extends FingerprintManager.AuthenticationCallbac
 
         paraLabel.setText(s);
 
-        if(b==false){
+        if(b==false) {
             paraLabel.setTextColor(ContextCompat.getColor(context, R.color.colorAccent));
-        }else{
+        } else{
             paraLabel.setTextColor(ContextCompat.getColor(context, R.color.colorPrimary));
             fingerprintImage.setImageResource(R.mipmap.ic_done);
 
-            accessButton.setVisibility(View.VISIBLE);
+            //accessButton.setVisibility(View.VISIBLE);
+
+            new Thread(new Runnable()
+            {
+                @Override
+                public void run()
+                {
+                    try
+                    {
+                        Thread.sleep(1000);
+                        Intent intent = new Intent(context, HomeActivity.class);
+                        context.startActivity(intent);
+                    }
+                    catch (InterruptedException e)
+                    {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                    }
+                }
+            }).start();
+
+            //Intent intent = new Intent(context,HomeActivity.class);
+            //context.startActivity(intent);
         }
     }
 }

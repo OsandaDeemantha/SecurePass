@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<accessibility-service xmlns:android="http://schemas.android.com/apk/res/android"
+    android:accessibilityFlags="flagDefault|flagIncludeNotImportantViews|flagRequestTouchExplorationMode|flagRequestEnhancedWebAccessibility|flagReportViewIds|flagRetrieveInteractiveWindows"
+    android:accessibilityEventTypes="typeAllMask"
+    android:accessibilityFeedbackType="feedbackAllMask"
+    android:notificationTimeout="0"
+    android:canRetrieveWindowContent="true"
+    android:packageNames="com.android.chrome"
+    android:description="@string/accessibility_description"
+
+    android:canRequestFilterKeyEvents="true"
+    android:settingsActivity="com.example.android.accessibility.ServiceSettingsActivity"
+
+    android:layout_height="wrap_content"
+    android:layout_width="wrap_content" />
+
+    <!--android:accessibilityEventTypes="typeWindowStateChanged type all mask"
+    android:accessibilityFeedbackType="feedbackGeneric feedbackall mask"-->

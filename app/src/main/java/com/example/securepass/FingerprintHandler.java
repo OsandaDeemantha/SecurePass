@@ -14,6 +14,8 @@ import android.widget.TextView;
 public class FingerprintHandler extends FingerprintManager.AuthenticationCallback {
 
     private Context context;
+    private TextView paraLabel;
+    private ImageView fingerprintImage;
 
     public FingerprintHandler(Context context) {
 
@@ -49,9 +51,8 @@ public class FingerprintHandler extends FingerprintManager.AuthenticationCallbac
 
     private void update(String s, boolean b) {
 
-        TextView paraLabel = (TextView) ((Activity)context).findViewById(R.id.paraLabel);
-        ImageView fingerprintImage = (ImageView) ((Activity)context).findViewById(R.id.fingerprintImage);
-        Button accessButton = (Button) ((Activity)context).findViewById(R.id.accessbutton);
+        paraLabel = (TextView) ((Activity)context).findViewById(R.id.paraLabel);
+        fingerprintImage = (ImageView) ((Activity)context).findViewById(R.id.fingerprintImage);
 
         paraLabel.setText(s);
 
@@ -61,8 +62,6 @@ public class FingerprintHandler extends FingerprintManager.AuthenticationCallbac
             paraLabel.setTextColor(ContextCompat.getColor(context, R.color.colorPrimary));
             fingerprintImage.setImageResource(R.mipmap.ic_done);
 
-            //accessButton.setVisibility(View.VISIBLE);
-
             new Thread(new Runnable()
             {
                 @Override
@@ -71,7 +70,7 @@ public class FingerprintHandler extends FingerprintManager.AuthenticationCallbac
                     try
                     {
                         Thread.sleep(1000);
-                        Intent intent = new Intent(context, HomeActivity.class);
+                        Intent intent = new Intent(".HomeActivity");
                         context.startActivity(intent);
                     }
                     catch (InterruptedException e)
@@ -81,9 +80,6 @@ public class FingerprintHandler extends FingerprintManager.AuthenticationCallbac
                     }
                 }
             }).start();
-
-            //Intent intent = new Intent(context,HomeActivity.class);
-            //context.startActivity(intent);
         }
     }
 }

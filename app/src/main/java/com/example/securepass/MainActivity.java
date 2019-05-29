@@ -6,9 +6,12 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.hardware.fingerprint.FingerprintManager;
 import android.os.Build;
+import android.provider.Settings;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -18,10 +21,7 @@ import org.w3c.dom.Text;
 
 public class MainActivity extends AppCompatActivity {
 
-    private TextView mHeadingLabel;
-    private ImageView mFingerprintImage;
     private TextView mParaLabel;
-    private Button mButton;
 
     private FingerprintManager fingerprintManager;
     private KeyguardManager keyguardManager;
@@ -31,12 +31,36 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mHeadingLabel = (TextView) findViewById(R.id.headingLabel);
-        mFingerprintImage = (ImageView) findViewById(R.id.fingerprintImage);
-        mParaLabel = (TextView) findViewById(R.id.paraLabel);
-        mButton = (Button) findViewById(R.id.accessbutton);
+        if (ContextCompat.checkSelfPermission(this,
+                Manifest.permission.BIND_ACCESSIBILITY_SERVICE)
+                != PackageManager.PERMISSION_GRANTED) {
 
-        mButton.setVisibility(View.INVISIBLE);
+            // Permission is not granted
+            // Should we show an explanation?
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this,
+                    Manifest.permission.BIND_ACCESSIBILITY_SERVICE)) {
+                // Show an explanation to the user *asynchronously* -- don't block
+                // this thread waiting for the user's response! After the user
+                // sees the explanation, try again to request the permission.
+            } else {
+                // No explanation needed; request the permission
+                ActivityCompat.requestPermissions(this,
+                        new String[]{Manifest.permission.READ_CONTACTS},
+                        1);
+
+                // MY_PERMISSIONS_REQUEST_READ_CONTACTS is an
+                // app-defined int constant. The callback method gets the
+                // result of the request.
+            }
+        } else {
+            // Permission has already been granted
+        }
+
+        Intent intent = new Intent(getApplicationContext(),MyAccessibilityService.class);
+        stopService(intent);
+        startService(intent);
+
+        mParaLabel = (TextView) findViewById(R.id.paraLabel);
 
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){   //Check 1 ; Android version => Marshmallow
             fingerprintManager = (FingerprintManager) getSystemService(FINGERPRINT_SERVICE);
@@ -60,19 +84,9 @@ public class MainActivity extends AppCompatActivity {
                 FingerprintHandler fingerprintHandler = new FingerprintHandler(this);
                 fingerprintHandler.startAuth(fingerprintManager, null);
 
-                mButton.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Intent intent = new Intent(".HomeActivity");
-                        startActivity(intent);
-
-                    }
-                });
-
             }
         }
 
     }
-
 
 }

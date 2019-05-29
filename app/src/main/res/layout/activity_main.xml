@@ -3,22 +3,29 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:orientation="vertical"
     android:layout_height="match_parent"
+    android:background="#10A000"
+    android:orientation="vertical"
     tools:context=".MainActivity">
+
+    <ImageView
+        android:id="@+id/logoImage"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_marginTop="20dp"
+        app:srcCompat="@mipmap/ic_logo_trans" />
 
     <TextView
         android:id="@+id/headingLabel"
-        android:layout_gravity="center"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
         android:fontFamily="serif-monospace"
-        android:layout_marginTop="74dp"
         android:text="SecurePass"
+        android:textAllCaps="false"
         android:textAppearance="@style/TextAppearance.AppCompat"
-        android:textSize="30sp"
-        android:textStyle="italic"
-        app:layout_constraintBottom_toTopOf="@+id/name"
+        android:textSize="45sp"
+        android:textStyle="bold|italic"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -27,7 +34,7 @@
         android:id="@+id/fingerprintImage"
         android:layout_width="match_parent"
         android:layout_height="160dp"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="60dp"
         app:srcCompat="@mipmap/ic_fingerprint" />
 
     <TextView
@@ -35,20 +42,27 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="30dp"
+        android:fontFamily="serif"
         android:text="Place your finger on the scanner to proceed.."
+        android:textAlignment="center"
+        android:textSize="24sp"
+        android:textStyle="italic"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/password"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintStart_toStartOf="parent" />
 
-    <Button
-        android:id="@+id/accessbutton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
-        android:layout_marginLeft="60dp"
-        android:layout_marginRight="60dp"
-        android:text="Home" />
+    <TextView
+        android:id="@+id/copyright"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:fontFamily="sans-serif"
+        android:text="Copyright | Osa"
+        android:layout_marginTop="60dp"
+        android:textAlignment="center"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </LinearLayout>

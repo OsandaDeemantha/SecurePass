@@ -15,6 +15,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "credentialManager";
     private static final String TABLE_CREDENTIALS = "credentials";
     private static final String KEY_ID = "id";
+    private static final String KEY_TITLE = "title";
     private static final String KEY_USERNAME = "username";
     private static final String KEY_PASSWORD = "password";
     private static final String KEY_URL = "url";
@@ -25,7 +26,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }    @Override
     public void onCreate(SQLiteDatabase db) {
         String CREATE_CREDENTIALS_TABLE = "CREATE TABLE " + TABLE_CREDENTIALS + " ( "
-                + KEY_ID + " INTEGER PRIMARY KEY, " + KEY_USERNAME + " TEXT, "
+                + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+                + KEY_TITLE + " TEXT, "
+                + KEY_USERNAME + " TEXT, "
                 + KEY_PASSWORD + " TEXT, "
                 +KEY_URL + " TEXT" + " ) ";
 
@@ -39,26 +42,32 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    void addCredential(Credential credential){
+    public boolean addCredential(Credential credential){
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
+        values.put(KEY_TITLE, credential.getTitle());
         values.put(KEY_USERNAME, credential.getUsername());
         values.put(KEY_PASSWORD, credential.getPassword());
         values.put(KEY_URL, credential.getUrl());
 
-        db.insert(TABLE_CREDENTIALS, null, values);
+        long result = db.insert(TABLE_CREDENTIALS, null, values);
         db.close();
+        if (result == -1){
+            return false;
+        }else{
+            return true;
+        }
     }
 
     Credential getCredential(int id){
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.query(TABLE_CREDENTIALS, new String[]{KEY_ID,KEY_USERNAME,KEY_PASSWORD,KEY_URL}, KEY_ID + "=?",
+        Cursor cursor = db.query(TABLE_CREDENTIALS, new String[]{KEY_ID,KEY_TITLE,KEY_USERNAME,KEY_PASSWORD,KEY_URL}, KEY_ID + "=?",
                 new String[]{String.valueOf(id)},null,null,null,null);
         if(cursor!=null){
             cursor.moveToFirst();
         }
-        Credential credential = new Credential(Integer.parseInt(cursor.getString(0)), cursor.getString(1), cursor.getString(2), cursor.getString(3));
+        Credential credential = new Credential(Integer.parseInt(cursor.getString(0)), cursor.getString(1), cursor.getString(2), cursor.getString(3), cursor.getString(4));
         return credential;
     }
 
@@ -71,9 +80,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             do {
                 Credential credential = new Credential();
                 credential.setId(Integer.parseInt(cursor.getString(0)));
-                credential.setUsername(cursor.getString(1));
-                credential.setPassword(cursor.getString(2));
-                credential.setUrl(cursor.getString(3));
+                credential.setTitle(cursor.getString(1));
+                credential.setUsername(cursor.getString(2));
+                credential.setPassword(cursor.getString(3));
+                credential.setUrl(cursor.getString(4));
 
                 credentialList.add(credential);
             }while (cursor.moveToNext());
@@ -85,6 +95,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
+        values.put(KEY_TITLE, credential.getTitle());
         values.put(KEY_USERNAME, credential.getUsername());
         values.put(KEY_PASSWORD, credential.getPassword());
         values.put(KEY_URL, credential.getUrl());
@@ -104,8 +115,18 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         String countQuery = "SELECT * FROM " + TABLE_CREDENTIALS;
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(countQuery,null);
-        cursor.close();
+        //db.close();
 
         return cursor.getCount();
+    }
+
+    public List<String> getAllURLs(){
+        List<String> URLsList = new ArrayList<>();
+        List<Credential> credentials = this.getAllCredentials();
+        for (Credential c : credentials){
+            String url = c.getUrl();
+            URLsList.add(url);
+        }
+        return URLsList;
     }
 }

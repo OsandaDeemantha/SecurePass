@@ -13,6 +13,3 @@
 
     android:layout_height="wrap_content"
     android:layout_width="wrap_content" />
-
-    <!--android:accessibilityEventTypes="typeWindowStateChanged type all mask"
-    android:accessibilityFeedbackType="feedbackGeneric feedbackall mask"-->

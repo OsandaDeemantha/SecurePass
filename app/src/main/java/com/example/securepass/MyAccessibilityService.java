@@ -36,7 +36,7 @@ public class MyAccessibilityService extends AccessibilityService {
             if (urls.contains(info.getText().toString())) {
                 final Intent dialogIntent = new Intent(this, SiteActivity.class);
                 dialogIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                new CountDownTimer(4000, 1000) {
+                new CountDownTimer(7000, 1000) {
 
                     public void onTick(long millisUntilFinished) {
                     }

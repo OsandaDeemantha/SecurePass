@@ -1,11 +1,16 @@
 package com.example.securepass;
 
+import android.content.ClipData;
+import android.content.ClipboardManager;
+import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.method.PasswordTransformationMethod;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -15,6 +20,7 @@ public class CredentialEditorActivity extends AppCompatActivity {
     private DatabaseHelper db;
     private Button btnUpdate,btnCancel;
     private EditText title,username,password,url;
+    private ImageButton clipcopy;
     private String ti,un,pw,ur,notice;
     private Credential credential;
     private int id;
@@ -43,6 +49,7 @@ public class CredentialEditorActivity extends AppCompatActivity {
         url = (EditText) findViewById(R.id.url);
         btnUpdate = (Button) findViewById(R.id.update);
         btnCancel = (Button) findViewById(R.id.cancel);
+        clipcopy = (ImageButton) findViewById(R.id.clipcopy);
 
         db = new DatabaseHelper(this);
 
@@ -52,6 +59,17 @@ public class CredentialEditorActivity extends AppCompatActivity {
         username.setText(credential.getUsername());
         password.setText(credential.getPassword());
         url.setText(credential.getUrl());
+
+        clipcopy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // TODO Auto-generated method stub
+                ClipboardManager clipboard = (ClipboardManager)   getSystemService(Context.CLIPBOARD_SERVICE);
+                ClipData clip = ClipData.newPlainText("Copied", credential.getPassword());
+                Toast.makeText(CredentialEditorActivity.this, "Password Copied!",Toast.LENGTH_LONG).show();
+                clipboard.setPrimaryClip(clip);
+            }
+        });
 
         btnCancel.setOnClickListener(new View.OnClickListener() {
             @Override

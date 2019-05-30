@@ -33,6 +33,7 @@ public class CredentialAddActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(CredentialAddActivity.this, HomeActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
             }
         });
@@ -58,10 +59,12 @@ public class CredentialAddActivity extends AppCompatActivity {
         if(insertData){
             Toast.makeText(CredentialAddActivity.this, "Successfully Entered",Toast.LENGTH_LONG).show();
             Intent intent = new Intent(CredentialAddActivity.this, HomeActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
         }else {
             Toast.makeText(CredentialAddActivity.this, "Something Went Wrong. Try Later",Toast.LENGTH_LONG).show();
             Intent intent = new Intent(CredentialAddActivity.this, HomeActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
         }
     }

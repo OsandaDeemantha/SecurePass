@@ -22,7 +22,7 @@ public class CredentialAddActivityTest {
     @Test
     public void addData() {
 
-        Credential credential = new Credential("osa", "dee","https://osa.com");
+        Credential credential = new Credential("facv","osa", "dee","https://osa.com");
         db.addCredential(credential);
 
     }

@@ -27,7 +27,7 @@ public class DatabaseHelperTest {
 
     @Test
     public void addCredential() {
-        db.addCredential(new Credential("sod","ger","gfger"));
+        db.addCredential(new Credential("df","sod","ger","gfger"));
     }
 
     @Test

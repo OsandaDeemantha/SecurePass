@@ -57,6 +57,7 @@ public class CredentialEditorActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(CredentialEditorActivity.this, HomeActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
             }
         });
@@ -93,10 +94,12 @@ public class CredentialEditorActivity extends AppCompatActivity {
         if(updateData == -1){
             Toast.makeText(CredentialEditorActivity.this, "Something went wrong",Toast.LENGTH_LONG).show();
             Intent intent = new Intent(CredentialEditorActivity.this, HomeActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
         }else {
             Toast.makeText(CredentialEditorActivity.this, notice,Toast.LENGTH_LONG).show();
             Intent intent = new Intent(CredentialEditorActivity.this, HomeActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
         }
     }

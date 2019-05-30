@@ -71,6 +71,7 @@ public class FingerprintHandler extends FingerprintManager.AuthenticationCallbac
                     {
                         Thread.sleep(1000);
                         Intent intent = new Intent(".HomeActivity");
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                         context.startActivity(intent);
                     }
                     catch (InterruptedException e)
